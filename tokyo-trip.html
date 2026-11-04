@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#FFFCF6">
+  <meta name="description" content="12/19 - 12/25 東京冬日聖誕之旅行程：航班、每日行程、住宿與行前提醒">
+  <title>東京冬日聖誕之旅 2026 🎄✨</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎄</text></svg>">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#FFFCF6', ink: '#3E3A39', coral: '#F2A497',
+            yamabuki: '#F6D27A', mizuiro: '#A8D3E6', wakatake: '#B9DAA5', softgray: '#F3EFE6'
+          },
+          fontFamily: { huninn: ['Huninn', 'cursive', 'sans-serif'] },
+          boxShadow: {
+            'picture': '4px 4px 0px #3E3A39',
+            'picture-sm': '2px 2px 0px #3E3A39',
+            'picture-lg': '6px 6px 0px #3E3A39'
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: #FFFCF6;
+      background-image: radial-gradient(#3E3A3912 1.5px, transparent 1.5px);
+      background-size: 22px 22px;
+      color: #3E3A39;
+      font-family: 'Huninn', cursive, sans-serif;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+    section[id] { scroll-margin-top: 76px; }
+
+    .picture-border { border: 3px solid #3E3A39; border-radius: 24px; }
+    .picture-border-sm { border: 3px solid #3E3A39; border-radius: 16px; }
+    .picture-btn {
+      border: 3px solid #3E3A39; border-radius: 16px;
+      box-shadow: 3px 3px 0 #3E3A39; transition: all .15s ease-out;
+    }
+    .picture-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #3E3A39; }
+    .picture-btn:focus-visible, a:focus-visible, button:focus-visible {
+      outline: 3px solid #F2A497; outline-offset: 2px;
+    }
+
+    @keyframes float-slow { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-8px) rotate(1.5deg); } }
+    @keyframes wiggle { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+    @keyframes bounce-tab { 0% { transform: scale(1); } 40% { transform: scale(1.12) translateY(-4px); } 70% { transform: scale(.96); } 100% { transform: scale(1); } }
+    @keyframes fade-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    @keyframes pop { 0% { transform: scale(.6); } 60% { transform: scale(1.25); } 100% { transform: scale(1); } }
+
+    .anim-float { animation: float-slow 4s ease-in-out infinite; }
+    .anim-wiggle { animation: wiggle 3s ease-in-out infinite; }
+    .tab-bounce { animation: bounce-tab .4s cubic-bezier(.175,.885,.32,1.275); }
+    .fade-up { opacity: 0; animation: fade-up .45s ease-out forwards; }
+    .dot-pop { animation: pop .3s ease-out; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .anim-float, .anim-wiggle, .tab-bounce, .dot-pop { animation: none !important; }
+      .fade-up { animation: none !important; opacity: 1; }
+    }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: #FFFCF6; }
+    ::-webkit-scrollbar-thumb { background: #F6D27A; border: 2px solid #3E3A39; border-radius: 8px; }
+
+    /* 時間軸 */
+    #timeline-content { position: relative; }
+    #timeline-content::before {
+      content: ''; position: absolute; left: 11px; top: 8px; bottom: 8px;
+      border-left: 4px dashed rgba(62,58,57,.3);
+    }
+    .tl-dot {
+      width: 26px; height: 26px; border-radius: 9999px; border: 3px solid #3E3A39;
+      background: #fff; box-shadow: 2px 2px 0 #3E3A39; flex-shrink: 0; margin-top: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 900; line-height: 1; transition: background .15s;
+      position: relative; z-index: 2;
+    }
+    .tl-dot:hover { background: #F6D27A; }
+    .tl-dot.done { background: #B9DAA5; }
+    .tl-card.done { opacity: .6; }
+    .tl-card.done h4 { text-decoration: line-through; text-decoration-thickness: 2px; }
+
+    /* 進度條 */
+    .progress-track { height: 12px; border: 2px solid #3E3A39; border-radius: 9999px; background: #fff; overflow: hidden; }
+    .progress-bar { height: 100%; background: #B9DAA5; border-right: 2px solid #3E3A39; transition: width .35s ease; width: 0; }
+
+    /* 提醒 */
+    .remind-item.done span.txt { text-decoration: line-through; opacity: .55; }
+
+    #toast {
+      position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom));
+      transform: translate(-50%, 30px); opacity: 0; pointer-events: none; z-index: 80;
+      transition: all .25s ease;
+    }
+    #toast.show { transform: translate(-50%, 0); opacity: 1; }
+
+    @media print {
+      nav, #to-top, #toast, .no-print { display: none !important; }
+      body { background: #fff; }
+      .fade-up { opacity: 1; animation: none; }
+    }
+  </style>
+</head>
+<body class="pb-24">
+  <!-- 導覽列 -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-paper/90 backdrop-blur-md border-b-4 border-ink px-4 py-2.5" aria-label="主選單">
+    <div class="max-w-4xl mx-auto flex items-center justify-between gap-3">
+      <a href="#hero" class="flex items-center gap-2 font-bold text-base sm:text-lg text-ink hover:opacity-80 transition shrink-0">
+        <svg class="w-7 h-7 anim-wiggle" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <circle cx="32" cy="32" r="28" fill="#F2A497" stroke="#3E3A39" stroke-width="3"/>
+          <path d="M18 42L32 18L46 42H18Z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/>
+          <circle cx="32" cy="18" r="4" fill="#F6D27A" stroke="#3E3A39" stroke-width="2"/>
+        </svg>
+        <span class="hidden min-[420px]:inline">東京冬日聖誕之旅</span>
+      </a>
+      <div class="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-bold overflow-x-auto no-scrollbar">
+        <a href="#flights" class="px-2.5 py-1 rounded-full hover:bg-yamabuki/60 transition whitespace-nowrap">航班</a>
+        <a href="#itinerary" class="px-2.5 py-1 rounded-full hover:bg-yamabuki/60 transition whitespace-nowrap">行程</a>
+        <a href="#hotel" class="px-2.5 py-1 rounded-full hover:bg-yamabuki/60 transition whitespace-nowrap">住宿</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-4xl mx-auto pt-20 px-4 space-y-10 relative z-10">
+
+    <!-- Hero -->
+    <section id="hero" class="bg-yamabuki/25 picture-border p-6 md:p-8 relative overflow-hidden shadow-picture">
+      <div class="absolute -right-8 -bottom-8 w-40 h-40 opacity-25 pointer-events-none" aria-hidden="true">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#F2A497"/></svg>
+      </div>
+      <div class="absolute left-4 top-3 text-xl opacity-60 anim-wiggle pointer-events-none" aria-hidden="true">✦</div>
+
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+        <div class="text-center md:text-left space-y-4">
+          <h1 class="text-3xl md:text-5xl font-black leading-tight text-ink">
+            12/19 - 12/25<br>東京冬日聖誕之旅 🎄✨
+          </h1>
+          <div class="flex flex-wrap justify-center md:justify-start gap-2 text-xs font-bold">
+            <span class="px-3 py-1 bg-white border-2 border-ink rounded-full">🗓️ 7 天 6 夜</span>
+            <span class="px-3 py-1 bg-white border-2 border-ink rounded-full">✈️ 星宇航空</span>
+            <span class="px-3 py-1 bg-white border-2 border-ink rounded-full">🏨 押上・晴空塔旁</span>
+          </div>
+        </div>
+
+        <div class="w-44 h-44 md:w-48 md:h-48 relative flex-shrink-0 anim-float" aria-hidden="true">
+          <svg viewBox="0 0 200 200" class="w-full h-full">
+            <polygon points="20,160 80,60 140,160" fill="#A8D3E6" stroke="#3E3A39" stroke-width="4" stroke-linejoin="round"/>
+            <polygon points="65,85 80,60 95,85 88,95 72,95" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/>
+            <circle cx="150" cy="50" r="22" fill="#F2A497" stroke="#3E3A39" stroke-width="4"/>
+            <path d="M140,160 L144,30 L156,30 L160,160 Z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="4" stroke-linejoin="round"/>
+            <line x1="140" y1="90" x2="160" y2="90" stroke="#3E3A39" stroke-width="3"/>
+            <line x1="142" y1="120" x2="158" y2="120" stroke="#3E3A39" stroke-width="3"/>
+            <circle cx="150" cy="90" r="5" fill="#F6D27A" stroke="#3E3A39" stroke-width="2"/>
+            <polygon points="10,160 30,120 50,160" fill="#B9DAA5" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/>
+            <polygon points="18,135 30,105 42,135" fill="#B9DAA5" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/>
+            <polygon points="27,105 30,95 33,105" fill="#F6D27A" stroke="#3E3A39" stroke-width="2"/>
+            <line x1="0" y1="160" x2="200" y2="160" stroke="#3E3A39" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 倒數 -->
+      <div class="mt-6 pt-5 border-t-[3px] border-dashed border-ink/30 relative z-10">
+        <p id="cd-label" class="text-center text-sm font-bold mb-3">距離出發還有</p>
+        <div id="cd-grid" class="grid grid-cols-4 gap-2 text-center" role="timer" aria-live="off">
+          <div class="bg-white picture-border-sm p-2 shadow-picture-sm">
+            <span id="cd-days" class="text-2xl md:text-3xl font-black text-coral tabular-nums">00</span>
+            <p class="text-xs font-bold text-ink/70">天</p>
+          </div>
+          <div class="bg-white picture-border-sm p-2 shadow-picture-sm">
+            <span id="cd-hours" class="text-2xl md:text-3xl font-black text-coral tabular-nums">00</span>
+            <p class="text-xs font-bold text-ink/70">時</p>
+          </div>
+          <div class="bg-white picture-border-sm p-2 shadow-picture-sm">
+            <span id="cd-mins" class="text-2xl md:text-3xl font-black text-coral tabular-nums">00</span>
+            <p class="text-xs font-bold text-ink/70">分</p>
+          </div>
+          <div class="bg-white picture-border-sm p-2 shadow-picture-sm">
+            <span id="cd-secs" class="text-2xl md:text-3xl font-black text-coral tabular-nums">00</span>
+            <p class="text-xs font-bold text-ink/70">秒</p>
+          </div>
+        </div>
+        <p id="cd-msg" class="hidden text-center text-xl font-black py-3"></p>
+      </div>
+    </section>
+
+    <!-- 航班 -->
+    <section id="flights" class="space-y-4">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">✈️</span>
+        <h2 class="text-2xl font-black">星宇航空 航班資訊</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <article class="bg-mizuiro/25 picture-border p-5 space-y-3 shadow-picture">
+          <span class="px-3 py-1 bg-coral text-white font-bold text-xs rounded-full border-2 border-ink inline-block">去程 JX802</span>
+          <div class="flex justify-between items-center font-bold">
+            <div>
+              <p class="text-xs text-ink/70">桃園 T1</p>
+              <p class="text-3xl font-black">10:10</p>
+              <p class="text-xs">12/19 (六)</p>
+            </div>
+            <div class="flex flex-col items-center" aria-hidden="true">
+              <span class="text-xs text-ink/60">3h 10m</span>
+              <svg class="w-14 h-6" viewBox="0 0 60 20">
+                <line x1="5" y1="10" x2="45" y2="10" stroke="#3E3A39" stroke-width="2" stroke-dasharray="3 3"/>
+                <polygon points="45,6 55,10 45,14" fill="#3E3A39"/>
+              </svg>
+            </div>
+            <div class="text-right">
+              <p class="text-xs text-ink/70">成田 T2</p>
+              <p class="text-3xl font-black">14:20</p>
+              <p class="text-xs">12/19 (六)</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="bg-wakatake/25 picture-border p-5 space-y-3 shadow-picture">
+          <span class="px-3 py-1 bg-wakatake text-ink font-bold text-xs rounded-full border-2 border-ink inline-block">回程 JX803</span>
+          <div class="flex justify-between items-center font-bold">
+            <div>
+              <p class="text-xs text-ink/70">成田 T2</p>
+              <p class="text-3xl font-black">15:40</p>
+              <p class="text-xs">12/25 (五)</p>
+            </div>
+            <div class="flex flex-col items-center" aria-hidden="true">
+              <span class="text-xs text-ink/60">4h 05m</span>
+              <svg class="w-14 h-6" viewBox="0 0 60 20">
+                <line x1="5" y1="10" x2="45" y2="10" stroke="#3E3A39" stroke-width="2" stroke-dasharray="3 3"/>
+                <polygon points="45,6 55,10 45,14" fill="#3E3A39"/>
+              </svg>
+            </div>
+            <div class="text-right">
+              <p class="text-xs text-ink/70">桃園 T1</p>
+              <p class="text-3xl font-black">18:45</p>
+              <p class="text-xs">12/25 (五)</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 每日行程 -->
+    <section id="itinerary" class="space-y-4">
+      <div class="flex items-center justify-between gap-2 flex-wrap">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🗓️</span>
+          <h2 class="text-2xl font-black">每日詳細行程</h2>
+        </div>
+        <span class="text-xs font-bold bg-wakatake px-3 py-1 rounded-full border-2 border-ink">點圓點可打勾 ✓　左右滑動換天</span>
+      </div>
+
+      <!-- 黏性日期分頁 -->
+      <div class="sticky top-[58px] z-40 bg-paper/95 backdrop-blur-sm -mx-4 px-4 py-2 border-b-2 border-dashed border-ink/20">
+        <div id="day-tabs" role="tablist" aria-label="選擇日期" class="flex gap-2 overflow-x-auto no-scrollbar pb-1 pr-1"></div>
+      </div>
+
+      <div id="day-banner" class="bg-white picture-border p-4 shadow-picture"></div>
+
+      <div id="timeline-content" class="space-y-5 py-2" aria-live="polite"></div>
+
+      <div class="flex items-center justify-between gap-3 no-print">
+        <button id="btn-prev" class="picture-btn bg-white px-4 py-2.5 font-bold text-sm disabled:opacity-40 disabled:pointer-events-none"></button>
+        <button id="btn-next" class="picture-btn bg-yamabuki px-4 py-2.5 font-bold text-sm disabled:opacity-40 disabled:pointer-events-none"></button>
+      </div>
+    </section>
+
+    <!-- 住宿 -->
+    <section id="hotel" class="bg-mizuiro/25 picture-border p-5 md:p-6 shadow-picture space-y-4">
+      <div class="flex items-center justify-between gap-2 flex-wrap">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🏨</span>
+          <h2 class="text-2xl font-black">住宿資訊</h2>
+        </div>
+        <a href="https://maps.app.goo.gl/zUFiXsyM7GC4LFG56" target="_blank" rel="noopener noreferrer"
+           class="px-3 py-1.5 bg-white text-xs font-bold rounded-xl border-2 border-ink shadow-picture-sm hover:bg-yamabuki transition">📍 Google Maps</a>
+      </div>
+
+      <div class="bg-white picture-border-sm p-4 space-y-3 shadow-picture-sm">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h3 class="text-lg md:text-xl font-bold">押上里士滿高級飯店<br class="sm:hidden"> <span class="text-sm text-ink/70">(Richmond Hotel Premier Tokyo Oshiage)</span></h3>
+          <span class="px-2.5 py-0.5 bg-wakatake text-xs font-bold rounded-full border border-ink">直通押上站 ➔ B3 出口</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <p id="hotel-addr" class="text-sm text-ink/80 font-bold">📍 東京都墨田區押上1-10-3（晴空塔正對面）</p>
+          <button id="copy-addr" class="px-2.5 py-1 bg-paper text-xs font-bold rounded-lg border-2 border-ink shadow-picture-sm hover:bg-yamabuki transition no-print">複製地址</button>
+        </div>
+        <p class="text-xs text-ink/70 bg-paper p-2.5 rounded-lg border border-ink/20 leading-relaxed">
+          💡 貼心提醒：直通京成 Access 特快押上站，從成田機場搭車不需換車直達！對面即為 Tokyo Solamachi 商場與 Life 超市，補貨超級方便。
+        </p>
+      </div>
+    </section>
+
+    <footer class="text-center text-sm font-bold text-ink/60 pt-2 pb-4">
+      祝旅途平安、玩得開心 🎅🗼
+    </footer>
+  </main>
+
+  <button id="to-top" aria-label="回到頂端"
+    class="fixed right-4 z-40 w-12 h-12 picture-btn bg-yamabuki font-black text-lg opacity-0 pointer-events-none transition-opacity no-print"
+    style="bottom: calc(20px + env(safe-area-inset-bottom));">↑</button>
+  <div id="toast" class="px-4 py-2 bg-ink text-paper text-sm font-bold rounded-full border-2 border-ink" role="status"></div>
+
+  <script>
+  (function () {
+    // ---------- 資料 ----------
+    const TRIP_START = new Date('2026-12-19T10:10:00+08:00').getTime();
+    const TRIP_DATES = ['2026-12-19','2026-12-20','2026-12-21','2026-12-22','2026-12-23','2026-12-24','2026-12-25'];
+    const STORE_KEY = 'tokyo-xmas-2026-v2';
+
+    const transportBgMap = { coral: 'bg-coral', mizuiro: 'bg-mizuiro', wakatake: 'bg-wakatake', yamabuki: 'bg-yamabuki' };
+
+    const daysData = [
+      { date: '12/19', wk: '六', tagline: '抵達東京・晴空塔夜晚', svgType: 'skytree', timeline: [
+        { title: '星宇航空 JX802 航班', transport: '飛機', note: '桃園 T1 出發 ➔ 成田 T2 抵達' },
+        { title: '入境與前往飯店 Check-in', transport: '京成 Access 特快', transportColor: 'coral', note: '搭乘往羽田空港或西馬込方向，押上站直達飯店', mapUrl: 'https://maps.app.goo.gl/zUFiXsyM7GC4LFG56' },
+        { title: '東京晴空塔 Solamachi 逛街＆晚餐', note: '逛 Tokyo Solamachi，感受聖誕燈飾氛圍', mapUrl: 'https://maps.app.goo.gl/7T7vLVXaxhp35aJ98' }
+      ]},
+      { date: '12/20', wk: '日', tagline: '燒肉・魔法世界・肉男', svgType: 'magic', timeline: [
+        { title: '晴空塔 敘敘苑 燒肉午餐', mustVisit: true, note: '⚠️ 記得取消多訂的一組預約', mapUrl: 'https://maps.app.goo.gl/Dvd7yKgQ4B7jAzUeA' },
+        { title: '前往豐島園影城', transport: '都營淺草線 ➔ 都營大江戶線', transportColor: 'mizuiro', note: 'A9 大門站轉 E 大江戶線至 E36 豐島園站，步行 3 分鐘' },
+        { title: '東京華納兄弟哈利波特影城', mustVisit: true, note: '建議預留 3.5 ~ 4 小時完整體驗魔法世界', mapUrl: 'https://maps.app.goo.gl/2Y86L7CKQwCMZ6RE9' },
+        { title: '19:30 晚餐：六本木 肉男 (MEAT MAN)', mustVisit: true, note: '人氣肉類居酒屋／串燒，已訂位', mapUrl: 'https://maps.app.goo.gl/pzi2C1KvhzLUbn6C8' }
+      ]},
+      { date: '12/21', wk: '一', tagline: '原宿散策・六本木點燈', svgType: 'ramen', timeline: [
+        { title: '飯店出發前往明治神宮', transport: '地鐵', transportColor: 'wakatake', note: '漫步綠意盎然的參道', mapUrl: 'https://maps.app.goo.gl/fpvpkaRn4QpPyG7K7' },
+        { title: '午餐三選一', options: [
+          { name: '漢堡排 嘉 (Harajuku)', note: '熱門名店，建議提前領整理券／排隊', mapUrl: 'https://maps.app.goo.gl/rpmaK3UdQVJrWyad6' },
+          { name: '炸豬排 tonkatsu.jp 表參道', note: '嚴選極品日本黑豬肉炸豬排', mapUrl: 'https://maps.app.goo.gl/7NNPEBGCQtac61Dk8' },
+          { name: '炸牛排 牛勝本村 原宿店', note: '超人氣酥炸半熟牛排', mapUrl: 'https://maps.app.goo.gl/QwMQVkSTy2LmFNKCA' }
+        ]},
+        { title: '表參道原宿逛街', note: '漫步時尚街區與選品店' },
+        { title: '晚餐三選一', options: [
+          { name: '銀座 篝 六本木新城店', note: '必吃濃郁雞白湯拉麵', mapUrl: 'https://maps.app.goo.gl/E72D1VL4utk4Qend7' },
+          { name: '六本木 AFURI 阿夫利', note: '招牌柚子鹽拉麵', mapUrl: 'https://maps.app.goo.gl/E36kBXM6C79kFh2f7' },
+          { name: '六本木 入鹿拉麵 (Iruka Tokyo)', note: '米其林推薦高質感拉麵', mapUrl: 'https://maps.app.goo.gl/gSuH5aPyUowGtEeW6' }
+        ]},
+        { title: '六本木聖誕點燈 ＆ 經典拍照點', mustVisit: true, note: 'LV 對面手扶梯上 2 樓天橋，拍東京鐵塔與櫸木坂燈飾', mapUrl: 'https://maps.app.goo.gl/DTmafeSC2FjS8ZkcA' }
+      ]},
+      { date: '12/22', wk: '二', tagline: '東京迪士尼樂園 全日遊', svgType: 'castle', timeline: [
+        { title: '出發前往東京迪士尼樂園', transport: '都營淺草線 ➔ 日比谷線 ➔ JR 京葉線', transportColor: 'yamabuki', note: 'A14 人形町站轉 H 日比谷線至 H12 八丁堀站，轉 JR 京葉線至舞濱站；或搭高速巴士 SKYTREE Shuttle' },
+        { title: '東京迪士尼樂園 全日遊', mustVisit: true, note: '⚠️ 入園前 2 個月（約 10/22）記得在 App 買票與搶 DPA', mapUrl: 'https://maps.app.goo.gl/9VQwVQjQv6BtWFcL8' }
+      ]},
+      { date: '12/23', wk: '三', tagline: '招福貓・東京車站燈飾', svgType: 'cat', timeline: [
+        { title: '出發前往世田谷豪德寺', transport: '半藏門線 ➔ 千代田線 ➔ 小田急線', transportColor: 'mizuiro', note: '表參道轉千代田線 ➔ 代代木上原轉小田急至豪德寺站，步行 15 分鐘' },
+        { title: '豪德寺 招福貓巡禮', mustVisit: true, note: '營業至 17:00（⚠️ 朱印與御守販售至 15:00）', mapUrl: 'https://maps.app.goo.gl/xCZBNiNXGT3hDxSQ7' },
+        { title: '13:30 午餐：山笑ふ 表参道店', transport: '小田急線／千代田線', transportColor: 'wakatake', note: '從豪德寺搭小田急直通千代田線至表參道，品嚐時尚精緻午餐', mapUrl: 'https://maps.app.goo.gl/DWK3NifNX5Kx5som9' },
+        { title: '下午：先回飯店休息，再看要不要去東京車站一番街', transport: '千代田線／丸之內線', transportColor: 'wakatake', note: '從表參道直達回飯店；Z08 大手町站轉丸之內線搭到 M17 東京站' },
+        { title: '晚餐：五代目 花山烏冬 日本橋店', mustVisit: true, note: '寬烏龍麵！17:30 開門，建議提早排隊', mapUrl: 'https://maps.app.goo.gl/6WequPgMM7FaopmH6' },
+        { title: '東京車站 丸之內聖誕燈飾 (Marunouchi Naka-Dori)', mustVisit: true, note: '哈利波特主題聖誕點燈漫步', mapUrl: 'https://maps.app.goo.gl/krPZNCdbG6qkVyVG7' }
+      ]},
+      { date: '12/24', wk: '四', tagline: '淺草・月島燒・購物', svgType: 'shrine', timeline: [
+        { title: '淺草寺參拜、逛雷門與藥妝店', note: '購買藥妝與下町伴手禮', mapUrl: 'https://maps.app.goo.gl/guTEiUDH61mETiQU7' },
+        { title: '午餐：月島燒 Tsukishima Monja Okoge', note: '建議提早預約，吃飽可以回飯店休息', mapUrl: 'https://maps.app.goo.gl/EwfQPSEfjnz4ks4A6' },
+        { title: '銀座或澀谷逛逛購物', note: '張振維說如果累了就不要去', mapUrl: 'https://maps.app.goo.gl/FcgXePxH6oK4ZEjv7' }
+      ]},
+      { date: '12/25', wk: '五', tagline: '採買・返抵台灣', svgType: 'plane', timeline: [
+        { title: '飯店退房與最後採買', note: '押上周邊或東京車站補貨' },
+        { title: '抵達成田國際機場 T2', transport: '京成 Access 特快／Skyliner', transportColor: 'coral', note: '辦理退稅、登機手續與免稅店購物' },
+        { title: '星宇航空 JX803 返抵台灣', note: '順利結束滿滿回憶的東京聖誕之旅！' }
+      ]}
+    ];
+
+    const svgIcons = {
+      skytree: `<svg viewBox="0 0 100 100" class="w-16 h-16" aria-hidden="true"><path d="M45,90 L48,15 L52,15 L55,90 Z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3"/><circle cx="50" cy="40" r="6" fill="#F6D27A" stroke="#3E3A39" stroke-width="2"/><circle cx="50" cy="60" r="8" fill="#F2A497" stroke="#3E3A39" stroke-width="2"/></svg>`,
+      magic: `<svg viewBox="0 0 100 100" class="w-16 h-16" aria-hidden="true"><polygon points="50,15 20,80 80,80" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/><path d="M15,80 Q50,90 85,80" fill="#F2A497" stroke="#3E3A39" stroke-width="3"/></svg>`,
+      ramen: `<svg viewBox="0 0 100 100" class="w-16 h-16" aria-hidden="true"><path d="M20,45 Q50,95 80,45 Z" fill="#F2A497" stroke="#3E3A39" stroke-width="3"/><line x1="25" y1="20" x2="75" y2="40" stroke="#3E3A39" stroke-width="3"/><line x1="30" y1="15" x2="80" y2="35" stroke="#3E3A39" stroke-width="3"/></svg>`,
+      castle: `<svg viewBox="0 0 100 100" class="w-16 h-16" aria-hidden="true"><rect x="30" y="50" width="40" height="35" fill="#A8D3E6" stroke="#3E3A39" stroke-width="3"/><polygon points="20,50 35,20 50,50" fill="#F2A497" stroke="#3E3A39" stroke-width="3"/><polygon points="50,50 65,20 80,50" fill="#F2A497" stroke="#3E3A39" stroke-width="3"/><rect x="42" y="65" width="16" height="20" rx="8" fill="#F6D27A" stroke="#3E3A39" stroke-width="2"/></svg>`,
+      cat: `<svg viewBox="0 0 100 100" class="w-16 h-16" aria-hidden="true"><circle cx="50" cy="55" r="30" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3"/><polygon points="25,35 35,15 45,30" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3"/><polygon points="55,30 65,15 75,35" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3"/><ellipse cx="70" cy="40" rx="6" ry="12" fill="#F2A497" stroke="#3E3A39" stroke-width="2"/></svg>`,
+      shrine: `<svg viewBox="0 0 100 100" class="w-16 h-16" aria-hidden="true"><path d="M15,25 L85,25 M20,20 L80,20" stroke="#3E3A39" stroke-width="4" stroke-linecap="round"/><rect x="25" y="25" width="8" height="60" fill="#F2A497" stroke="#3E3A39" stroke-width="3"/><rect x="67" y="25" width="8" height="60" fill="#F2A497" stroke="#3E3A39" stroke-width="3"/><rect x="38" y="40" width="24" height="30" rx="6" fill="#F2A497" stroke="#3E3A39" stroke-width="3"/></svg>`,
+      plane: `<svg viewBox="0 0 100 100" class="w-16 h-16" aria-hidden="true"><path d="M10,50 L40,40 L85,20 L75,50 L90,55 L85,65 L70,60 L50,85 L40,80 L48,55 Z" fill="#A8D3E6" stroke="#3E3A39" stroke-width="3"/></svg>`
+    };
+
+    // ---------- 工具 ----------
+    const $ = (id) => document.getElementById(id);
+    const esc = (s) => String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let checks = {};
+    try { checks = JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); } catch (e) { checks = {}; }
+    function saveChecks() { try { localStorage.setItem(STORE_KEY, JSON.stringify(checks)); } catch (e) {} }
+
+    let toastTimer;
+    function toast(msg) {
+      const t = $('toast');
+      t.textContent = msg; t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
+    }
+
+    function mapLink(url) {
+      return url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 bg-paper text-ink text-xs font-bold rounded-xl border-2 border-ink shadow-picture-sm hover:bg-yamabuki transition whitespace-nowrap flex items-center gap-1">📍 地圖</a>` : '';
+    }
+
+    // ---------- 日期分頁 ----------
+    let current = 0;
+
+    function buildTabs() {
+      $('day-tabs').innerHTML = daysData.map((d, i) => `
+        <button role="tab" id="tab-${i}" aria-controls="timeline-content" aria-selected="false" tabindex="-1" data-day="${i}"
+          class="day-tab picture-btn px-3.5 py-1.5 bg-white font-bold whitespace-nowrap flex-shrink-0 text-center leading-tight">
+          <span class="block text-[10px] text-ink/60">DAY ${i + 1}</span>
+          <span class="block text-sm">${d.date}<span class="text-xs text-ink/70"> (${d.wk})</span></span>
+        </button>`).join('');
+    }
+
+    function dayProgress(i) {
+      const items = daysData[i].timeline;
+      const done = items.filter((_, k) => checks[`d${i}-${k}`]).length;
+      return { done, total: items.length };
+    }
+
+    function updateBanner(i) {
+      const day = daysData[i];
+      const { done, total } = dayProgress(i);
+      $('day-banner').innerHTML = `
+        <div class="flex items-center justify-between gap-4">
+          <div class="space-y-1.5 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="px-2.5 py-0.5 bg-coral text-white text-xs font-bold rounded-full border border-ink">DAY ${i + 1}</span>
+            </div>
+            <h3 class="text-2xl font-black">${day.date} <span class="text-lg text-ink/70">(${day.wk})</span></h3>
+          </div>
+          <div class="anim-float shrink-0">${svgIcons[day.svgType] || ''}</div>
+        </div>
+        <div class="mt-4 flex items-center gap-3">
+          <div class="progress-track flex-1"><div class="progress-bar" style="width:${total ? (done / total) * 100 : 0}%"></div></div>
+          <span class="text-xs font-bold tabular-nums whitespace-nowrap">${done} / ${total}</span>
+        </div>`;
+    }
+
+    function renderItem(item, di, k) {
+      const key = `d${di}-${k}`;
+      const done = !!checks[key];
+      const badgeBg = transportBgMap[item.transportColor] || 'bg-wakatake';
+      const delay = `style="animation-delay:${Math.min(k, 8) * 50}ms"`;
+
+      let body;
+      if (item.options) {
+        body = `
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+            ${item.options.map((o, n) => `
+              <div class="bg-paper rounded-xl border-2 border-ink/80 p-2.5 flex flex-col gap-1.5">
+                <div class="flex items-start gap-1.5">
+                  <span class="shrink-0 w-5 h-5 rounded-full bg-yamabuki border-2 border-ink text-[11px] font-black flex items-center justify-center">${n + 1}</span>
+                  <p class="text-sm font-bold leading-snug">${esc(o.name)}</p>
+                </div>
+                <p class="text-xs text-ink/70 font-bold flex-1">${esc(o.note)}</p>
+                <div class="flex">${mapLink(o.mapUrl)}</div>
+              </div>`).join('')}
+          </div>`;
+      } else {
+        body = item.note ? `<p class="text-xs text-ink/75 font-bold bg-paper p-2 rounded-lg border border-ink/10 leading-relaxed">${esc(item.note)}</p>` : '';
+      }
+
+      return `
+        <div class="flex gap-3 items-start fade-up" ${delay}>
+          <button class="tl-dot ${done ? 'done' : ''}" data-check="${key}" role="checkbox" aria-checked="${done}" aria-label="標記「${esc(item.title)}」完成">${done ? '✓' : ''}</button>
+          <div class="tl-card ${done ? 'done' : ''} flex-1 min-w-0 bg-white picture-border-sm p-3.5 space-y-2 shadow-picture-sm">
+            <div class="flex flex-wrap items-start justify-between gap-2">
+              <div class="flex items-center gap-2 flex-wrap min-w-0">
+                <h4 class="text-base font-bold">${esc(item.title)}</h4>
+                ${item.mustVisit ? `<span class="px-2 py-0.5 bg-coral text-white font-bold text-xs rounded-full border border-ink">必去</span>` : ''}
+                ${item.transport ? `<span class="px-2 py-0.5 ${badgeBg} font-bold text-xs rounded-full border border-ink">🚇 ${esc(item.transport)}</span>` : ''}
+              </div>
+              ${item.mapUrl ? mapLink(item.mapUrl) : ''}
+            </div>
+            ${body}
+          </div>
+        </div>`;
+    }
+
+    function setNavButtons(i) {
+      const prev = $('btn-prev'), next = $('btn-next');
+      prev.disabled = i === 0;
+      next.disabled = i === daysData.length - 1;
+      prev.textContent = i > 0 ? `← ${daysData[i - 1].date}` : '← 上一天';
+      next.textContent = i < daysData.length - 1 ? `${daysData[i + 1].date} →` : '下一天 →';
+    }
+
+    function switchDay(i, opts = {}) {
+      if (i < 0 || i >= daysData.length) return;
+      current = i;
+
+      document.querySelectorAll('.day-tab').forEach((tab, n) => {
+        const active = n === i;
+        tab.classList.toggle('bg-yamabuki', active);
+        tab.classList.toggle('bg-white', !active);
+        tab.setAttribute('aria-selected', active);
+        tab.tabIndex = active ? 0 : -1;
+        tab.classList.remove('tab-bounce');
+        if (active) {
+          void tab.offsetWidth; tab.classList.add('tab-bounce');
+          tab.scrollIntoView({ inline: 'center', block: 'nearest', behavior: reduceMotion ? 'auto' : 'smooth' });
+        }
+      });
+
+      updateBanner(i);
+      $('timeline-content').innerHTML = daysData[i].timeline.map((it, k) => renderItem(it, i, k)).join('');
+      setNavButtons(i);
+
+      if (!opts.silent) {
+        try { history.replaceState(null, '', `#day-${i + 1}`); } catch (e) {}
+      }
+      if (opts.scroll) {
+        $('itinerary').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+      }
+    }
+
+    // ---------- 事件 ----------
+    $('day-tabs').addEventListener('click', e => {
+      const b = e.target.closest('[data-day]');
+      if (b) switchDay(+b.dataset.day);
+    });
+    $('day-tabs').addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { switchDay(Math.min(current + 1, daysData.length - 1)); $('tab-' + current).focus(); }
+      if (e.key === 'ArrowLeft') { switchDay(Math.max(current - 1, 0)); $('tab-' + current).focus(); }
+    });
+    $('btn-prev').addEventListener('click', () => switchDay(current - 1, { scroll: true }));
+    $('btn-next').addEventListener('click', () => switchDay(current + 1, { scroll: true }));
+
+    $('timeline-content').addEventListener('click', e => {
+      const b = e.target.closest('[data-check]');
+      if (!b) return;
+      const key = b.dataset.check;
+      checks[key] = !checks[key];
+      if (!checks[key]) delete checks[key];
+      saveChecks();
+      const done = !!checks[key];
+      b.classList.toggle('done', done);
+      b.setAttribute('aria-checked', done);
+      b.textContent = done ? '✓' : '';
+      if (done) { b.classList.remove('dot-pop'); void b.offsetWidth; b.classList.add('dot-pop'); }
+      b.closest('.flex').querySelector('.tl-card').classList.toggle('done', done);
+      updateBanner(current);
+    });
+
+    // 左右滑動換天
+    (function swipe() {
+      const el = $('timeline-content');
+      let sx = 0, sy = 0, t0 = 0;
+      el.addEventListener('touchstart', e => { const t = e.changedTouches[0]; sx = t.clientX; sy = t.clientY; t0 = Date.now(); }, { passive: true });
+      el.addEventListener('touchend', e => {
+        const t = e.changedTouches[0];
+        const dx = t.clientX - sx, dy = t.clientY - sy;
+        if (Math.abs(dx) > 70 && Math.abs(dy) < 45 && Date.now() - t0 < 600) {
+          switchDay(current + (dx < 0 ? 1 : -1));
+        }
+      }, { passive: true });
+    })();
+
+    // 複製地址
+    $('copy-addr').addEventListener('click', async () => {
+      const text = '東京都墨田區押上1-10-3';
+      try { await navigator.clipboard.writeText(text); toast('已複製地址 ✓'); }
+      catch (e) {
+        const ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); toast('已複製地址 ✓'); } catch (_) { toast('複製失敗，請手動選取'); }
+        ta.remove();
+      }
+    });
+
+    // 回到頂端
+    const topBtn = $('to-top');
+    topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
+    window.addEventListener('scroll', () => {
+      const show = window.scrollY > 500;
+      topBtn.classList.toggle('opacity-0', !show);
+      topBtn.classList.toggle('pointer-events-none', !show);
+    }, { passive: true });
+
+    // ---------- 倒數 ----------
+    function updateCountdown() {
+      const diff = TRIP_START - Date.now();
+      const grid = $('cd-grid'), msg = $('cd-msg'), label = $('cd-label');
+      if (diff <= 0) {
+        const todayIdx = TRIP_DATES.indexOf(todayTaipei());
+        grid.classList.add('hidden'); msg.classList.remove('hidden');
+        if (todayIdx >= 0) { label.textContent = ''; msg.textContent = `🎄 旅程進行中・今天是第 ${todayIdx + 1} 天`; }
+        else if (todayIdx === -1 && todayTaipei() > TRIP_DATES[6]) { label.textContent = ''; msg.textContent = '🏠 旅程圓滿結束，歡迎回家！'; }
+        else { label.textContent = ''; msg.textContent = '✈️ 出發囉！'; }
+        return;
+      }
+      const d = Math.floor(diff / 864e5), h = Math.floor(diff % 864e5 / 36e5),
+            m = Math.floor(diff % 36e5 / 6e4), s = Math.floor(diff % 6e4 / 1e3);
+      $('cd-days').textContent = String(d).padStart(2, '0');
+      $('cd-hours').textContent = String(h).padStart(2, '0');
+      $('cd-mins').textContent = String(m).padStart(2, '0');
+      $('cd-secs').textContent = String(s).padStart(2, '0');
+    }
+    function todayTaipei() {
+      return new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Taipei' });
+    }
+
+    // ---------- 初始化 ----------
+    function init() {
+      buildTabs();
+
+      let start = 0, fromHash = false;
+      const m = location.hash.match(/^#day-(\d)$/);
+      if (m && +m[1] >= 1 && +m[1] <= daysData.length) { start = +m[1] - 1; fromHash = true; }
+      else {
+        const t = TRIP_DATES.indexOf(todayTaipei());
+        if (t >= 0) start = t;
+      }
+      switchDay(start, { silent: true });
+      if (fromHash) setTimeout(() => $('itinerary').scrollIntoView(), 60);
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    }
+    document.addEventListener('DOMContentLoaded', init);
+  })();
+  </script>
+</body>
+</html>
