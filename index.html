@@ -153,11 +153,6 @@
           <h1 class="text-3xl md:text-5xl font-black leading-tight text-ink">
             12/19 - 12/25<br>東京冬日聖誕之旅 🎄✨
           </h1>
-          <div class="flex flex-wrap justify-center md:justify-start gap-2 text-xs font-bold">
-            <span class="px-3 py-1 bg-white border-2 border-ink rounded-full">🗓️ 7 天 6 夜</span>
-            <span class="px-3 py-1 bg-white border-2 border-ink rounded-full">✈️ 星宇航空</span>
-            <span class="px-3 py-1 bg-white border-2 border-ink rounded-full">🏨 押上・晴空塔旁</span>
-          </div>
         </div>
 
         <div class="w-44 h-44 md:w-48 md:h-48 relative flex-shrink-0 anim-float" aria-hidden="true">
@@ -509,7 +504,8 @@
         tab.classList.remove('tab-bounce');
         if (active) {
           void tab.offsetWidth; tab.classList.add('tab-bounce');
-          tab.scrollIntoView({ inline: 'center', block: 'nearest', behavior: reduceMotion ? 'auto' : 'smooth' });
+          const box = $('day-tabs');
+          box.scrollTo({ left: tab.offsetLeft - (box.clientWidth - tab.offsetWidth) / 2, behavior: opts.silent || reduceMotion ? 'auto' : 'smooth' });
         }
       });
 
@@ -517,9 +513,6 @@
       $('timeline-content').innerHTML = daysData[i].timeline.map((it, k) => renderItem(it, i, k)).join('');
       setNavButtons(i);
 
-      if (!opts.silent) {
-        try { history.replaceState(null, '', `#day-${i + 1}`); } catch (e) {}
-      }
       if (opts.scroll) {
         $('itinerary').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
       }
@@ -615,15 +608,15 @@
     function init() {
       buildTabs();
 
-      let start = 0, fromHash = false;
-      const m = location.hash.match(/^#day-(\d)$/);
-      if (m && +m[1] >= 1 && +m[1] <= daysData.length) { start = +m[1] - 1; fromHash = true; }
-      else {
-        const t = TRIP_DATES.indexOf(todayTaipei());
-        if (t >= 0) start = t;
-      }
+      let start = 0;
+      const t = TRIP_DATES.indexOf(todayTaipei());
+      if (t >= 0) start = t;
       switchDay(start, { silent: true });
-      if (fromHash) setTimeout(() => $('itinerary').scrollIntoView(), 60);
+
+      // 打開網頁一律從最上面開始
+      try { history.scrollRestoration = 'manual'; } catch (e) {}
+      if (location.hash) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} }
+      window.scrollTo(0, 0);
 
       updateCountdown();
       setInterval(updateCountdown, 1000);
